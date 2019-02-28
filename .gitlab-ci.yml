@@ -12,13 +12,13 @@ variables:
 
 stages:
   - build
-  - test
   - package
 
 before_script:
 #  - echo `pwd` # debug
 #  - echo "$CI_BUILD_NAME, $CI_BUILD_REF_NAME $CI_BUILD_STAGE" # debug
   - export GRADLE_USER_HOME=`pwd`/.gradle
+  - mkdir "$CI_PROJECT_DIR/.m2" && ln -sf ~/.m2 "$CI_PROJECT_DIR/.m2"
 
 cache:
   key: "$CI_COMMIT_REF_NAME"
@@ -43,12 +43,6 @@ build:
     expire_in: 1 week
   # only:
   #   - master
-
-test:
-  stage: test
-  script:
-    # - ./gradlew test
-    - echo TODO
 
 package:
   stage: package
