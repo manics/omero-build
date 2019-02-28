@@ -18,7 +18,7 @@ before_script:
 #  - echo `pwd` # debug
 #  - echo "$CI_BUILD_NAME, $CI_BUILD_REF_NAME $CI_BUILD_STAGE" # debug
   - export GRADLE_USER_HOME=`pwd`/.gradle
-  - mkdir "$CI_PROJECT_DIR/.m2" && ln -sf ~/.m2 "$CI_PROJECT_DIR/.m2"
+  - mkdir -p "$CI_PROJECT_DIR/.m2" && ln -sf ~/.m2 "$CI_PROJECT_DIR/.m2"
 
 cache:
   key: "$CI_COMMIT_REF_NAME"
@@ -34,12 +34,13 @@ build:
   stage: build
   script:
     - ./gitlab/patch-repositories.sh
-    - git clone --recursive git://github.com/manics/omero-gradle-plugins --branch m4+gitlab tmp/omero-gradle-plugins
-    - cd tmp/omero-gradle-plugins && gradle publishToMavenLocal && cd ../..
+    - git clone --recursive git://github.com/manics/omero-gradle-plugins --branch m4+gitlab
+    - cd omero-gradle-plugins && gradle publishToMavenLocal && cd ..
     - gradle publishToMavenLocal
   artifacts:
     paths:
       - omero-*/build/libs/*.jar
+      - omero-gradle-plugins/omero-*/build/libs/*.jar
     expire_in: 1 week
   # only:
   #   - master
@@ -48,6 +49,3 @@ package:
   stage: package
   script:
     - gradle publish
-
-after_script:
-  - echo "End CI"
