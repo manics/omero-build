@@ -1,0 +1,29 @@
+
+publishing {
+    repositories {
+        maven {
+            url "https://gitlab.com/api/v4/projects/${System.getenv("CI_PROJECT_ID")}/packages/maven"
+            credentials(HttpHeaderCredentials) {
+                name = "Job-Token"
+                value = System.getenv("CI_JOB_TOKEN")
+            }
+            authentication {
+                header(HttpHeaderAuthentication)
+            }
+        }
+    }
+
+    publications {
+        api(MavenPublication) {
+            from components.java
+
+            artifact sourcesJar {
+                classifier "sources"
+            }
+
+            artifact javadocJar {
+                classifier "javadoc"
+            }
+        }
+    }
+}
