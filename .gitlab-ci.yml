@@ -2,7 +2,8 @@
 #   https://gist.github.com/daicham/5ac8461b8b49385244aa0977638c3420
 #   https://gitlab.com/gitlab-org/gitlab-ce/blob/7d1216016cfc64e35955249e39c46615e2dbdf93/lib/gitlab/ci/templates/Gradle.gitlab-ci.yml
 #image: java:8-jdk
-image: gradle:5.2.1-jdk8
+#image: gradle:5.2.1-jdk8
+image: docker.io/manics/omero-build-gradle
 
 variables:
   # Clone submodules
