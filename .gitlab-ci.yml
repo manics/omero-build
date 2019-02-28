@@ -24,10 +24,12 @@ cache:
   key: "$CI_COMMIT_REF_NAME"
 #  policy: push
   paths:
-    # - .gradle/wrapper
-    # - .gradle/caches
     - .gradle
+    - omero-*/.gradle
+    - omero-gradle-plugins/omero-*/.gradle
     - build
+    - omero-*/build
+    - omero-gradle-plugins/omero-*/build
     - .m2
 
 build:
@@ -36,6 +38,8 @@ build:
     - ./gitlab/patch-repositories.sh
     - git clone --recursive git://github.com/manics/omero-gradle-plugins --branch m4+gitlab
     - cd omero-gradle-plugins && gradle publishToMavenLocal && cd ..
+    - ls -lR .m2
+    - ls -lR ~/.m2
     - gradle publishToMavenLocal
   artifacts:
     paths:
