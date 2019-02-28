@@ -33,7 +33,7 @@ cache:
 build:
   stage: build
   script:
-    - ./gitlab/mvn-repository.sh
+    - ./gitlab/patch-repositories.sh
     - git clone --recursive git://github.com/manics/omero-gradle-plugins --branch m4+gitlab tmp/omero-gradle-plugins
     - cd tmp/omero-gradle-plugins && gradle publishToMavenLocal && cd ../..
     - gradle publishToMavenLocal
