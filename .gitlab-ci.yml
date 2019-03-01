@@ -26,25 +26,18 @@ cache:
 #  policy: push
   paths:
     - .gradle
-    - omero-*/.gradle
-    - omero-gradle-plugins/omero-*/.gradle
+    - ./*-*/.gradle
     - build
-    - omero-*/build
-    - omero-gradle-plugins/omero-*/build
+    - ./*-*/build
     - .m2
 
 build:
   stage: build
   script:
-    - git clone --recursive git://github.com/manics/omero-gradle-plugins --branch m4+gitlab
-    - cd omero-gradle-plugins && gradle publishToMavenLocal && cd ..
-    - ls -lR .m2
-    - ls -lR ~/.m2
     - gradle publishToMavenLocal
   artifacts:
     paths:
-      - omero-*/build/libs/*.jar
-      - omero-gradle-plugins/omero-*/build/libs/*.jar
+      - ./*-*/build/libs/*.jar
     expire_in: 1 week
   # only:
   #   - master
@@ -52,4 +45,4 @@ build:
 package:
   stage: package
   script:
-    - gradle publish
+    - gradle publishPluginMavenPublicationToGitlabRepository
