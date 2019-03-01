@@ -23,7 +23,7 @@ before_script:
   - for d in *-*/; do (cd $d && echo $d && git diff); done
 
 cache:
-  key: "$CI_COMMIT_REF_NAME"
+  key: "$CI_COMMIT_SHA"
 #  policy: push
   paths:
     - .gradle
