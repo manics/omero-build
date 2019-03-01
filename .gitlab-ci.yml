@@ -20,6 +20,7 @@ before_script:
   - export GRADLE_USER_HOME=`pwd`/.gradle
   - mkdir -p "$CI_PROJECT_DIR/.m2" && ln -sf "$CI_PROJECT_DIR/.m2" ~/.m2
   - ./gitlab/patch-repositories.sh
+  - for d in *-*/; do (cd $d && echo $d && git diff); done
 
 cache:
   key: "$CI_COMMIT_REF_NAME"
