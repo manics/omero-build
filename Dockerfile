@@ -28,7 +28,7 @@ USER 1000
 RUN git clone -b m4 git://github.com/rgozim/omero-gradle-plugins /tmp/omero-gradle-plugins
 WORKDIR /tmp/omero-gradle-plugins
 RUN git submodule update --init
-RUN gradle publishToMavenLocal
+RUN gradle publishToMavenLocal -x javadoc
 
 # Initialize submodules
 WORKDIR /src
@@ -42,4 +42,4 @@ COPY --chown=1000:1000 *.gradle /src/
 COPY --chown=1000:1000 gradle.properties /src/
 
 #RUN gradle build -x test
-RUN gradle publishToMavenLocal
+RUN gradle publishToMavenLocal -x javadoc
