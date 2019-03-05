@@ -1,0 +1,10 @@
+settingsEvaluated {
+    it.pluginManagement {
+        repositories {
+            maven {
+                url System.getenv("MVN_REPOSITORY_URL") ?: 'https://artifacts.openmicroscopy.org/artifactory/maven/'
+            }
+            gradlePluginPortal()
+        }
+    }
+}
